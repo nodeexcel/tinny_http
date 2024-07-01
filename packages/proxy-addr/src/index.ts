@@ -174,23 +174,7 @@ function trustMulti(subnets: (IPv4 | IPv6)[]) {
  *
  * @param subnet
  */
-function trustSingle(subnet: IPv4 | IPv6) {
-  const subnetip = subnet[0]
-  const subnetkind = subnetip.kind()
-  const subnetisipv4 = subnetkind === 'ipv4'
-  const subnetrange = subnet[1]
-  return function trust(addr: string) {
-    if (!isip(addr)) return false
-    let ip = parseip(addr)
-    const kind = ip.kind()
-    if (kind !== subnetkind) {
-      if (subnetisipv4 && !(ip as IPv6).isIPv4MappedAddress()) return false
 
-      ip = subnetisipv4 ? (ip as IPv6).toIPv4Address() : (ip as IPv4).toIPv4MappedAddress()
-    }
-    return (ip as IPv6).match(subnetip, subnetrange)
-  }
-}
 
 export { alladdrs as all }
 export { compile }
