@@ -1,0 +1,13 @@
+{
+  "name": "validator",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@tinyhttp/app": "workspace:*",
+    "fastest-validator": "^1.18.0",
+    "milliparsec": "^2.3.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}

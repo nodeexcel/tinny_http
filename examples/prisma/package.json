@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "tinyhttp-prisma",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "5.16.0",
+    "@tinyhttp/app": "workspace:*",
+    "milliparsec": "^2.3.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.16.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "graphql",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@tinyhttp/app": "workspace:*",
+    "graphql": "^16.9.0",
+    "graphql-http": "^1.22.1"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}

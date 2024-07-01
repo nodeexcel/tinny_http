@@ -1,0 +1,53 @@
+{
+  "name": "@tinyhttp/monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "repository": "https://github.com/tinyhttp/tinyhttp.git",
+  "author": "talentlessguy <yo@v1rtl.site>",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=14.21.3",
+    "pnpm": ">=8"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.2",
+    "@changesets/cli": "2.27.6",
+    "@commitlint/cli": "19.3.0",
+    "@commitlint/config-conventional": "19.2.2",
+    "@types/node": "20.14.8",
+    "@vitest/coverage-v8": "^1.6.0",
+    "c8": "^10.1.2",
+    "colorette": "2.0.20",
+    "dirname-filename-esm": "1.1.1",
+    "eta": "2.2.0",
+    "header-range-parser": "^1.1.3",
+    "husky": "9.0.11",
+    "jsonwebtoken": "9.0.2",
+    "regexparam": "3.0.0",
+    "supertest-fetch": "1.5.0",
+    "tslib": "2.6.3",
+    "typescript": "~5.5.2",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "1.6.0"
+  },
+  "scripts": {
+    "prerelease": "pnpm lint && pnpm build && pnpm test",
+    "chgset:run": "changeset",
+    "chgset:version": "changeset version",
+    "rm-changelogs": "rm -rf packages/*/CHANGELOG.md",
+    "chgset": "pnpm chgset:run && pnpm chgset:version && pnpm rm-changelogs",
+    "release": "changeset publish",
+    "test:dev": "vitest --dir tests",
+    "test:coverage": "vitest run --dir tests --coverage",
+    "test": "pnpm test:coverage",
+    "lint": "biome lint .",
+    "format": "biome format .",
+    "check": "biome check .",
+    "echo:ancestor": "echo ${ANCESTOR_REF:-$(git merge-base origin/master HEAD)}",
+    "build": "pnpm -r build",
+    "prepare": "husky install"
+  },
+  "packageManager": "pnpm@9.3.0+sha256.e1f9e8d1a16607a46dd3c158b5f7a7dc7945501d1c6222d454d63d033d1d918f"
+}

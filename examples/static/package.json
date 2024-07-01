@@ -1,0 +1,12 @@
+{
+  "name": "static",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@tinyhttp/app": "workspace:*",
+    "sirv": "^2.0.4"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
