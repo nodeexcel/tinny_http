@@ -35,6 +35,12 @@ Visit [tinyhttp website](https://tinyhttp.v1rtl.site) for docs, guides and
 middleware search.
 
 ```
+
+## Donate
+
+You can donate with fiat or crypto
+[here](https://github.com/tinyhttp/tinyhttp?sponsor=1).
+
 ## Sponsors
 
 <table>

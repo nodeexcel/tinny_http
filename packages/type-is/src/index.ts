@@ -19,48 +19,6 @@ function tryNormalizeType(value: string) {
   }
 }
 
-function mimeMatch(expected: string | boolean, actual: string | boolean): boolean {
-  // invalid type
-  if (expected === false) return false
-
-  // split types
-  const actualParts = (actual as string).split('/')
-  const expectedParts = (expected as string).split('/')
-
-  // invalid format
-  if (actualParts.length !== 2 || expectedParts.length !== 2) return false
-
-  // validate type
-  if (expectedParts[0] !== '*' && expectedParts[0] !== actualParts[0]) return false
-
-  // validate suffix wildcard
-  if (expectedParts[1].slice(0, 2) === '*+')
-    return (
-      expectedParts[1].length <= actualParts[1].length + 1 &&
-      expectedParts[1].slice(1) === actualParts[1].slice(1 - expectedParts[1].length)
-    )
-
-  // validate subtype
-  if (expectedParts[1] !== '*' && expectedParts[1] !== actualParts[1]) return false
-
-  return true
-}
-
-function normalize(type: string | unknown) {
-  // invalid type
-  if (typeof type !== 'string') return false
-
-  switch (type) {
-    case 'urlencoded':
-      return 'application/x-www-form-urlencoded'
-    case 'multipart':
-      return 'multipart/*'
-  }
-  // "+json" -> "*/*+json" expando
-  if (type[0] === '+') return `*/*${type}`
-
-  return type.indexOf('/') === -1 ? mime.getType(type) : type
-}
 
 /**
  * Compare a `value` content-type with `types`.
