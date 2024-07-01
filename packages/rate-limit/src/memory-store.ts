@@ -16,26 +16,6 @@ export class MemoryStore implements Store {
     if (interval.unref) interval.unref()
   }
 
-  incr = async (key: string, callback: (error: Error | null, hits: number, resetTime: Date) => void): Promise<void> => {
-    if (this.hits[key]) this.hits[key]++
-    else this.hits[key] = 1
-
-    callback(null, this.hits[key], this.resetTime)
-  }
-
-  decrement(key: string): void {
-    if (this.hits[key]) this.hits[key]--
-  }
-
-  resetAll = (): void => {
-    this.hits = {}
-    this.resetTime = this.calculateNextResetTime(this.windowMs)
-  }
-
-  resetKey(key: string): void {
-    delete this.hits[key]
-  }
-
   calculateNextResetTime(windowMs: number): Date {
     const nextResetDate = new Date()
     nextResetDate.setMilliseconds(nextResetDate.getMilliseconds() + windowMs)
