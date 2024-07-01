@@ -18,32 +18,7 @@ export class Accepts {
    *
    * The `type` value may be a single mime type string such as "application/json", the extension name such as "json" or an array `["json", "html", "text/plain"]`. When a list or array is given the _best_ match, if any is returned. When no types are given as arguments, returns all types accepted by the client in the preference order.
    */
-  types(types: string | string[], ...args: string[]): string[] | string | false {
-    let mimeTypes: string[] = []
-
-    // support flattened arguments
-    if (types && !Array.isArray(types)) {
-      mimeTypes = [types, ...args]
-    } else if (types) {
-      mimeTypes = [...types, ...args]
-    }
-
-    // no types, return all requested types
-    if (!mimeTypes || mimeTypes.length === 0) {
-      return this.negotiator.mediaTypes()
-    }
-
-    // no accept header, return first given type
-    if (!this.headers.accept) {
-      return mimeTypes[0]
-    }
-
-    const mimes = mimeTypes.map(extToMime)
-    const accepts = this.negotiator.mediaTypes(mimes.filter(validMime) as string[])
-    const [first] = accepts
-
-    return first ? mimeTypes[mimes.indexOf(first)] : false
-  }
+  
   get type(): (types: string | string[], ...args: string[]) => string[] | string | false {
     return this.types
   }
