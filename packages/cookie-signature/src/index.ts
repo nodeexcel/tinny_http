@@ -19,3 +19,34 @@ export const unsign = (val: string, secret: string): string | false => {
   valBuffer.write(val)
   return timingSafeEqual(macBuffer, valBuffer) ? str : false
 }
+
+export function parse(header: string): string[] {
+  let end = header.length
+  const list: string[] = []
+  let start = header.length
+
+  // gather addresses, backwards
+  for (let i = header.length - 1; i >= 0; i--) {
+    switch (header.charCodeAt(i)) {
+      case 0x20 /*   */:
+        if (start === end) {
+          start = end = i
+        }
+        break
+      case 0x2c /* , */:
+        if (start !== end) {
+          list.push(header.substring(start, end))
+        }
+        start = end = i
+        break
+      default:
+        start = i
+        break
+    }
+  }
+
+  // final address
+  if (start !== end) list.push(header.substring(start, end))
+
+  return list
+}
