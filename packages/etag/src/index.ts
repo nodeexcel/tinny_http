@@ -34,3 +34,20 @@ export const eTag = (entity: string | Buffer | Stats, options?: { weak: boolean 
 
   return weak ? `W/${tag}` : tag
 }
+export const sign = (val: string, secret: string): string =>
+  `${val}.${createHmac('sha256', secret).update(val).digest('base64').replace(/=+$/, '')}`
+
+/**
+ * Unsign and decode the given `val` with `secret`,
+ * returning `false` if the signature is invalid.
+ */
+export const unsign = (val: string, secret: string): string | false => {
+  const str = val.slice(0, val.lastIndexOf('.'))
+  const mac = sign(str, secret)
+  const macBuffer = Buffer.from(mac)
+  const valBuffer = Buffer.alloc(macBuffer.length)
+
+  valBuffer.write(val)
+  return timingSafeEqual(macBuffer, valBuffer) ? str : false
+}
+
