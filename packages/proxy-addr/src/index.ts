@@ -1,6 +1,7 @@
 import type { IncomingMessage } from 'node:http'
 import { forwarded } from '@tinyhttp/forwarded'
 import ipaddr, { type IPv6, type IPv4 } from 'ipaddr.js'
+import { IP_RANGES } from './constant'
 
 type Req = Pick<IncomingMessage, 'headers' | 'socket'>
 
@@ -12,12 +13,6 @@ const parseip = ipaddr.parse
 /**
  * Pre-defined IP ranges.
  */
-const IP_RANGES = {
-  linklocal: ['169.254.0.0/16', 'fe80::/10'],
-  loopback: ['127.0.0.1/8', '::1/128'],
-  uniquelocal: ['10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16', 'fc00::/7']
-}
-
 /**
  * Static trust function to trust nothing.
  */
